@@ -1,8 +1,12 @@
-# Clase usuario para 
+# Clase usuario sobre la cual trabajaremos
 class Usuario:
+
+    #En el constructor definiremos los errores que queremos exceptuar
     def __init__(self, nombre, edad, altura):
         self.nombre = nombre
 
+        # Tanto para la edad como para la altura le pondremos la condición 
+        # para que esta sea obligatoriamente un número entero positivo
         edad_valida = False
         while not edad_valida:
             try:
@@ -28,12 +32,14 @@ class Usuario:
                 altura = input("Ingrese nuevamente la altura en centímetros: ")
 
         self.altura = altura
-
+    
+    # Método que nos mostrará todos los datos del usuario creado
     def mostrar_datos(self):
         print('Nombre:', self.nombre)
         print('Edad  :', self.edad)
         print('Altura:', self.altura / 100, 'm')
 
+# Main
 print("---------- Inicio de Sesión ----------")
 
 nombre = input("Inserte su nombre: ")
