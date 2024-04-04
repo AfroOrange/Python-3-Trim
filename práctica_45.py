@@ -11,6 +11,7 @@ def agregar_usuarios(dni, nombre, apellidos, correo):
         filePath.write("\n"f"{dni}, {nombre}, {apellidos}, {correo} \n")
         print("Datos agregados:", dni, nombre, apellidos, correo)
 
+# Mismo método para agregar, pero esta vez leerá los datos almacenados en una lista
 def agregar_lista_datos(datos):
     with open('usuarios.txt', 'a+') as filePath:
         for valores in datos:
@@ -30,6 +31,6 @@ apellidos = 'López Ortega'
 correo = 'manuelortega@correo.com'
 agregar_usuarios(dni, nombre, apellidos, correo)
 
-# otra manera
+# Ejemplo con una lista de datos
 datos = ['02103123d', 'Elena', 'Marrero Dávila', 'elenadav@correo.com']
 agregar_lista_datos(datos)
