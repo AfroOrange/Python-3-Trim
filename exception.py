@@ -1,33 +1,45 @@
-class usuario:
+# Clase usuario para 
+class Usuario:
     def __init__(self, nombre, edad, altura):
         self.nombre = nombre
 
-        try:
-            if edad <= 0:
-                raise ValueError
-        except (ValueError or TypeError):
-            print('No se puede introducir edad menor que cero')
-            while edad <= 0:
-                edad = int(input("Ingrese nuevamente el dato: "))
+        edad_valida = False
+        while not edad_valida:
+            try:
+                edad = int(edad)
+                if edad <= 0:
+                    raise ValueError
+                edad_valida = True
+            except ValueError:
+                print('La edad debe ser un número entero positivo')
+                edad = input("Ingrese nuevamente la edad: ")
+                
         self.edad = edad
 
-        try: 
-            if altura % 2 == 0:
-                raise ValueError
-        except (ValueError, TypeError):
-            print('No se puede transformar un string en un decimal')
-            altura = float(input("Ingrese nuevamente el dato: "))
+        altura_valida = False
+        while not altura_valida:
+            try:
+                altura = int(altura)
+                if altura <= 0:
+                    raise ValueError
+                altura_valida = True
+            except ValueError:
+                print('La altura debe ser un número entero positivo')
+                altura = input("Ingrese nuevamente la altura en centímetros: ")
+
         self.altura = altura
 
     def mostrar_datos(self):
         print('Nombre:', self.nombre)
         print('Edad  :', self.edad)
-        print('Altura:', self.altura)
+        print('Altura:', self.altura / 100, 'm')
 
-print("Login")
+print("---------- Inicio de Sesión ----------")
 
-persona = usuario(input("Inserte su nombre: "), int(input("Inserte la edad: ")), input("Inserte la altura: "))
+nombre = input("Inserte su nombre: ")
+edad = input("Inserte la edad: ")
+altura = input("Inserte la altura en centímetros: ")
+
+persona = Usuario(nombre, edad, altura)
 print("\n")
 persona.mostrar_datos()
-
-
