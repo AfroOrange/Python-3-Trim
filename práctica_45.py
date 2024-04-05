@@ -1,3 +1,8 @@
+# Método para mostrar todos los datos del archivo 
+def mostrar_usuarios(file):
+    for line in file:
+        print(line)
+
 # Método para buscar usuarios a través del DNI
 def buscar_usuario(dni):
     with open('usuarios.txt', 'r') as filePath:
@@ -34,3 +39,26 @@ agregar_usuarios(dni, nombre, apellidos, correo)
 # Ejemplo con una lista de datos
 datos = ['02103123d', 'Elena', 'Marrero Dávila', 'elenadav@correo.com']
 agregar_lista_datos(datos)
+
+archivo = open("usuarios.txt")
+
+## "Menú"
+print("--------- Inicio de Sesión ---------")
+print("| 1 --> Ver la lista de usuarios  |  2 --> Buscar un usuario por DNI  |  3 --> Agregar un nuevo usuario  |  4 --> Eliminar un usuario  |")
+respuesta = int(input("Seleccione la opción que sea hacer:" ))
+
+# Acciones según la respuesta del usuario
+while respuesta < 5:
+    if respuesta == 1:
+        mostrar_usuarios(archivo)
+    if respuesta == 2:
+        buscar_usuario(str(input("Introducir DNI:" )))
+    if respuesta == 3:
+        agregar_usuarios(str(input("DNI:" )), str(input("Nombre:" )), str(input("Apellidos:" )), str(input("Correo electrónico:" )))
+    if respuesta == 4:
+        pass
+
+    print("\n")
+    finalizar = str(input("¿Quiere hacer otra opción? --- | S / N |"))
+    if finalizar == "S":
+        pass
