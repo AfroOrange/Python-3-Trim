@@ -1,52 +1,36 @@
-import re
+class Videojuegos:
+    idVideojuego = 1
+    estados_validos = ["En venta", "Agotado", "Obsoleto"]  # Lista para agregar los estados de los juegos
+    nombres_validos = ["PlayStation", "PS4", "PS5", "XBOX", "XBOX ONE", "Nintendo", "Switch", "PC", "Todas"]  # Lista para agregar consolas
 
-class videojuegos:
-    idVideojuego = 0
+    def __init__(self, nombre, consola, estado):
+        if consola not in Videojuegos.nombres_validos:
+            raise ValueError(f"Los nombres válidos son: {', '.join(Videojuegos.nombres_validos)}")
 
-    def __init__(self, nombre, consola, estado, id_juego):
-        videojuegos.idVideojuego += 1
-        self.id = id_juego
+        if estado not in Videojuegos.estados_validos:
+            raise ValueError(f"Los valores válidos son: {', '.join(Videojuegos.estados_validos)}")
 
-        self.nombre = nombre 
+        self.nombre = nombre
         self.consola = consola
         self.estado = estado
 
+    # Método para añadir videojuegos nuevos 
     def añadir_videojuego(self):
-            with open('juegos.txt', 'a+') as juegosPath:
-                juegosPath.write(f"{self.nombre}, {self.consola}, {self.estado}, {self.id}")
-        
-    def buscar_videojuego(idvideojuego):
+        # Guarda los números de serie de los juegos
+        numeros_seriales = set()
+
+        # Lee el archivo para comprobar si existen números de serie iguales
         with open('juegos.txt', 'r') as juegosPath:
             for line in juegosPath:
-                if idvideojuego in line:
-                    print(line)
+                serial = line.split("| Nº de serie -->")[-1].strip()
+                numeros_seriales.add(int(serial))
+        
+        # Establece el siguiente número de serie disponible
+        while Videojuegos.idVideojuego in numeros_seriales:
+            Videojuegos.idVideojuego += 1
 
-    def marcar_obsoleto():
-        pass
+        self.serial = Videojuegos.idVideojuego
 
-
-class usuarios:
-    def __init__(self, dni, nombre, apellidos, telefono, correo):
-        self.dni = dni(re.sub(r'[0-9]{8}[A-Z]'))
-        self.nombre = nombre
-        self.apellidos = apellidos
-        self.telefono = telefono 
-        self.correo = correo
-
-    def agregar_usuarios(dni, nombre, apellidos, telefono, correo):
-        with open('usuarios.txt', 'a+') as filePath:
-            filePath.write(f"{dni}, {nombre}, {apellidos}, {telefono}, {correo}")
-
-    def buscar_usuario(dni):
-        with open('usuarios.txt', 'r') as filePath:
-            for line in filePath:
-                if dni in line:
-                    print(line)
-
-    def eliminar_usuario():
-        pass
-
-
-
-zelda = videojuegos("Zelda", "Nintendo", "En venta", 1)
-zelda.añadir_videojuego
+        # Finalmente añade una entrada nueva a juegos.txt con el videojuego
+        with open('juegos.txt', 'a+') as juegosPath:
+            juegosPath.write(f"| {self.nombre} | {self.consola} | {self.estado} | Nº de serie --> {self.serial}\n")
