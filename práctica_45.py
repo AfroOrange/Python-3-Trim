@@ -24,6 +24,20 @@ def agregar_lista_datos(datos):
         print("Datos agregados correctamente")
 
 # Método para eliminar usuarios a través del DNI
+def eliminar_usuario(dni):
+        # La variable datos será un array donde guardaremos todas las líneas del documento
+    datos = []
+
+        # Una vez encuentre el DNI introducido, borrará el documento
+    with open('usuarios.txt', 'r') as filePath:
+        for line in filePath:
+            if dni not in line:
+                datos.append(line)
+
+        # Luego lo reescribirá con los datos guardados
+    with open('usuarios.txt', 'w') as filePath:
+        for line in datos:
+            filePath.write(line) 
 
 # Datos de los usuarios para buscar
 id = str(input("Insertar DNI: "))
