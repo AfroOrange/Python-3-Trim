@@ -25,34 +25,21 @@ def agregar_lista_datos(datos):
 
 # Método para eliminar usuarios a través del DNI
 def eliminar_usuario(dni):
-        # La variable datos será un array donde guardaremos todas las líneas del documento
+    # La variable datos será un array donde guardaremos todas las líneas del documento
     datos = []
 
-        # Una vez encuentre el DNI introducido, borrará el documento
+    # Una vez encuentre el DNI introducido, borrará el documento
     with open('usuarios.txt', 'r') as filePath:
         for line in filePath:
             if dni not in line:
                 datos.append(line)
 
-        # Luego lo reescribirá con los datos guardados
+    # Luego lo reescribirá con los datos guardados
     with open('usuarios.txt', 'w') as filePath:
         for line in datos:
             filePath.write(line) 
 
-# Datos de los usuarios para buscar
-id = str(input("Insertar DNI: "))
-buscar_usuario(id)
 
-# Datos del usuario para introducir 
-dni = '02103123d'
-nombre = 'Manuel'
-apellidos = 'López Ortega'
-correo = 'manuelortega@correo.com'
-agregar_usuarios(dni, nombre, apellidos, correo)
-
-# Ejemplo con una lista de datos
-datos = ['02103123d', 'Elena', 'Marrero Dávila', 'elenadav@correo.com']
-agregar_lista_datos(datos)
 
 archivo = open("usuarios.txt")
 
@@ -62,7 +49,7 @@ print("| 1 --> Ver la lista de usuarios  |  2 --> Buscar un usuario por DNI  |  
 respuesta = int(input("Seleccione la opción que sea hacer:" ))
 
 # Acciones según la respuesta del usuario
-while respuesta < 5:
+while True:
     if respuesta == 1:
         mostrar_usuarios(archivo)
     if respuesta == 2:
@@ -70,9 +57,13 @@ while respuesta < 5:
     if respuesta == 3:
         agregar_usuarios(str(input("DNI:" )), str(input("Nombre:" )), str(input("Apellidos:" )), str(input("Correo electrónico:" )))
     if respuesta == 4:
-        pass
+        eliminar_usuario(str(input("Introduce el DNI de la persona que desee eliminar: ")))
 
     print("\n")
     finalizar = str(input("¿Quiere hacer otra opción? --- | S / N |"))
-    if finalizar == "S":
-        pass
+    if finalizar.upper() == "N":
+        break
+    else:
+        print("--------- Menú ---------")
+        print("| 1 --> Ver la lista de usuarios  |  2 --> Buscar un usuario por DNI  |  3 --> Agregar un nuevo usuario  |  4 --> Eliminar un usuario  |")
+        respuesta = int(input("Seleccione la opción que desee realizar: "))
